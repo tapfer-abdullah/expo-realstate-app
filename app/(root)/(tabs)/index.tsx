@@ -43,7 +43,7 @@ const Home = () => {
 
   return (
     <View className="flex-1 pt-10  px-3">
-      <Text>Homedfffffffffffffffffffffffffffffffffffffff</Text>
+      <Text className="text-xl font-bold text-center mb-2">All Countries</Text>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -54,11 +54,18 @@ const Home = () => {
             <View className="mb-4 p-4 border rounded-lg bg-white shadow w-max ">
               <Image
                 source={{ uri: item.flags.png }}
-                style={{ width: 150, height: 150 }}
+                style={{ width: "auto", height: 150, resizeMode: "contain" }}
+                className="mx-auto "
               />
-              <Text className="font-bold">{item.name.common}</Text>
-              <Text>Capital: {item.capital?.[0]}</Text>
-              <Text>
+              <Text className="font-bold text-center mt-2 text-lg">
+                {item.name.common}
+              </Text>
+              <Text className="text-center">
+                Official Name: {item.name.official}
+              </Text>
+
+              <Text className="text-center">Capital: {item.capital?.[0]}</Text>
+              <Text className="text-center">
                 Currencies:{" "}
                 {Object.values(item.currencies)
                   .map((c: any) => c.name)
@@ -66,7 +73,7 @@ const Home = () => {
               </Text>
               <TouchableOpacity
                 onPress={() => handleToggleSaveCountry(item)}
-                className="bg-blue-500 text-white p-2 rounded-lg"
+                className="bg-blue-500 text-white p-2 rounded-lg w-max mx-auto mt-2"
               >
                 <Text>
                   {savedCountries.some(

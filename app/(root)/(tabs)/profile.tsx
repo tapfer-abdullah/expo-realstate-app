@@ -7,7 +7,7 @@ const Home = () => {
   const { signOut } = useClerk();
   return (
     <View className="flex-1 pt-10  px-3">
-      <Text>Profile</Text>
+      <Text className="text-xl font-bold text-center mb-2">Profile</Text>
 
       <Text>
         Name: {user?.firstName} {user?.lastName}
@@ -16,9 +16,9 @@ const Home = () => {
 
       <TouchableOpacity
         onPress={() => signOut()}
-        className="bg-red-500 px-4 py-2 rounded-lg mt-4"
+        className="bg-red-500 px-4 py-2 rounded-lg mt-4 w-max"
       >
-        <Text className="text-white font-semibold">Sign Out</Text>
+        <Text className="text-white font-semibold text-center">Sign Out</Text>
       </TouchableOpacity>
     </View>
   );
