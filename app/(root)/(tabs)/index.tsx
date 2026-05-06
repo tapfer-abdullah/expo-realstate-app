@@ -1,0 +1,95 @@
+import { useCountryStore } from "@/store/userStore";
+import { Image } from "expo-image";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const Home = () => {
+  const [isLoading, setLoading] = useState(true);
+  const { allCountries, setAllCountries, savedCountries, setSavedCountries } =
+    useCountryStore();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          "https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags",
+        );
+        const data: any[] = await response.json();
+        // console.log("Data fetched:", data);
+        setAllCountries(data?.length > 50 ? data.slice(0, 50) : data);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const handleToggleSaveCountry = (country: any) => {
+    if (!savedCountries.some((c) => c.name.common === country.name.common)) {
+      setSavedCountries([...savedCountries, country]);
+    } else {
+      setSavedCountries(
+        savedCountries.filter((c) => c.name.common !== country.name.common),
+      );
+    }
+  };
+
+  return (
+    <View className="flex-1 pt-10  px-3">
+      <Text className="text-xl font-bold text-center mb-2">All Countries</Text>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          data={allCountries}
+          keyExtractor={(item) => item.name.common}
+          renderItem={({ item }) => (
+            <View className="mb-4 p-4 border rounded-lg bg-white shadow w-max ">
+              <Image
+                source={{ uri: item.flags.png }}
+                style={{ width: "auto", height: 150, resizeMode: "contain" }}
+                className="mx-auto "
+              />
+              <Text className="font-bold text-center mt-2 text-lg">
+                {item.name.common}
+              </Text>
+              <Text className="text-center">
+                Official Name: {item.name.official}
+              </Text>
+
+              <Text className="text-center">Capital: {item.capital?.[0]}</Text>
+              <Text className="text-center">
+                Currencies:{" "}
+                {Object.values(item.currencies)
+                  .map((c: any) => c.name)
+                  .join(", ")}
+              </Text>
+              <TouchableOpacity
+                onPress={() => handleToggleSaveCountry(item)}
+                className="bg-blue-500 text-white p-2 rounded-lg w-max mx-auto mt-2"
+              >
+                <Text>
+                  {savedCountries.some(
+                    (c) => c.name.common === item.name.common,
+                  )
+                    ? "Unsave"
+                    : "Save"}{" "}
+                  Country
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      )}
+    </View>
+  );
+};
+
+export default Home;
