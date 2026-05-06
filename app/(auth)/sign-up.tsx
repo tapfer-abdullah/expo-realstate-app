@@ -32,7 +32,7 @@ const SingUp = () => {
   });
 
   const handleInputChange = (field: string, value: string) => {
-    console.log(`Updating ${field} with value: ${value}`);
+    // console.log(`Updating ${field} with value: ${value}`);
     setLoginData((prevData) => ({
       ...prevData,
       [field]: value,
@@ -108,7 +108,7 @@ const SingUp = () => {
     });
 
     const { error } = response;
-    console.log("Sign Up response:", response);
+    // console.log("Sign Up response:", response);
     setIsLoading(false);
 
     if (error) {
@@ -133,7 +133,7 @@ const SingUp = () => {
           if (session?.currentTask) {
             // Handle pending session tasks
             // See https://clerk.com/docs/guides/development/custom-flows/authentication/session-tasks
-            console.log(session?.currentTask);
+            // console.log(session?.currentTask);
             return;
           }
 
@@ -211,11 +211,13 @@ const SingUp = () => {
       keyboardShouldPersistTaps="handled"
     >
       <View className="px-6 py-12">
-        <Image
-          source={require("../../assets/images/ingrej-blue-logo.png")}
-          className=" h-20 min-w-[80px] w-auto mb-10"
-          contentFit="contain"
-        />
+        <View className="items-center my-5">
+          <Image
+            source={require("../../assets/images/ingrej-blue-logo.png")}
+            style={{ width: 150, height: 50 }}
+            contentFit="contain"
+          />
+        </View>
         <Text className=" text-2xl font-bold text-center">Sign Up</Text>
         <Text className=" text-gray-500 mt-2 text-center">
           Sign Up to your account to continue
@@ -307,11 +309,11 @@ const SingUp = () => {
 
           {/* Errors */}
           {/* For your debugging purposes. You can just console.log errors, but we put them in the UI for convenience */}
-          {errors && (
+          {/* {errors && (
             <Text className=" text-red-500 mt-4">
               {JSON.stringify(errors, null, 2)}
             </Text>
-          )}
+          )} */}
 
           {/* Required for sign-up flows. Clerk's bot sign-up protection is enabled by default */}
           <View nativeID="clerk-captcha" />

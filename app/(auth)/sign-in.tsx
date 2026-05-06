@@ -56,7 +56,7 @@ const SignIn = () => {
         password: loginData.password,
       });
 
-      console.log("Sign In response:", { error, status: signIn.status });
+      // console.log("Sign In response:", { error, status: signIn.status });
 
       if (error) {
         setError({
@@ -113,11 +113,13 @@ const SignIn = () => {
       keyboardShouldPersistTaps="handled"
     >
       <View className="px-6 py-12">
-        <Image
-          source={require("../../assets/images/ingrej-blue-logo.png")}
-          className="h-20 min-w-[80px] w-auto mb-10"
-          contentFit="contain"
-        />
+        <View className="items-center my-5">
+          <Image
+            source={require("../../assets/images/ingrej-blue-logo.png")}
+            style={{ width: 150, height: 50 }}
+            contentFit="contain"
+          />
+        </View>
         <Text className="text-2xl font-bold text-center">Sign In</Text>
         <Text className="text-gray-500 mt-2 text-center">
           Sign in to your account to continue

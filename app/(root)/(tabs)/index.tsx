@@ -21,7 +21,7 @@ const Home = () => {
           "https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags",
         );
         const data: any[] = await response.json();
-        console.log("Data fetched:", data);
+        // console.log("Data fetched:", data);
         setAllCountries(data?.length > 50 ? data.slice(0, 50) : data);
       } finally {
         setLoading(false);
